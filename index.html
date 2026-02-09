@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Profit Calculator</title>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background:#f4f6f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+width:340px;
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+.input-group{
+margin-bottom:15px;
+}
+
+label{
+display:block;
+margin-bottom:5px;
+font-size:14px;
+}
+
+input{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#1f7aec;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.2s;
+}
+
+button:hover{
+background:#155ec0;
+}
+
+.result{
+margin-top:18px;
+padding:15px;
+border-radius:10px;
+background:#f0f7ff;
+text-align:center;
+font-size:18px;
+font-weight:bold;
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Gold Profit Calculator</h2>
+
+<div class="input-group">
+<label>Gold Given (grams)</label>
+<input type="number" id="gold" placeholder="Enter gold in grams">
+</div>
+
+<div class="input-group">
+<label>Gold Rate (PKR)</label>
+<input type="text" id="rate" placeholder="Enter gold rate">
+</div>
+
+<button onclick="calculate()">Calculate Profit</button>
+
+<div class="result" id="resultBox">
+Profit: Rs <span id="profit"></span>
+</div>
+</div>
+
+<script>
+
+function formatNumber(num){
+return num.toLocaleString('en-PK');
+}
+
+document.getElementById("rate").addEventListener("input", function(e){
+let value = e.target.value.replace(/,/g,'');
+if(!isNaN(value) && value !== ""){
+e.target.value = formatNumber(Number(value));
+}
+});
+
+function calculate(){
+
+let gold = parseFloat(document.getElementById("gold").value);
+let rate = document.getElementById("rate").value.replace(/,/g,'');
+
+rate = parseFloat(rate);
+
+if(isNaN(gold) || isNaN(rate)){
+alert("Please enter valid numbers");
+return;
+}
+
+let profit = (((gold/96)*2.5)/11.664)*rate;
+
+document.getElementById("profit").innerText = formatNumber(profit.toFixed(2));
+document.getElementById("resultBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>
